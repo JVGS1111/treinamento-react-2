@@ -1,74 +1,35 @@
+import { Typography } from '@material-ui/core';
 import React, { useState } from 'react';
-import { Button, TextField, Switch, FormControlLabel } from '@material-ui/core/';
+import { Fragment } from 'react';
+import DadosEntrega from './DadosEntrega';
+import DadosPessoais from './DadosPessoais';
+import DadosUsuario from './DadosUsuario';
 
 function FormularioCadastro({ aoEnviar, validarCpf }) {
-    const [nome, setNome] = useState("");
-    const [sobrenome, setSobrenome] = useState("");
-    const [cpf, setCpf] = useState("");
-    const [promocoes, setPromocoes] = useState(true);
-    const [novidades, setNovidades] = useState(true)
-    const [erros, setErros] = useState({ cpf: { valido: true, texto: "" } })
+    const [etapaAtual, setEtapaAtual] = useState(0);
+
+    function formularioAtual(etapaAtual) {
+        switch (etapaAtual) {
+            case 0:
+                return <DadosUsuario />
+            case 1:
+                return <DadosPessoais aoEnviar={aoEnviar} validarCpf={validarCpf} />
+            case 2:
+                return <DadosEntrega />
+
+            default: <Typography>Erro ao selecionar formulario atual</Typography>
+        }
+    }
 
     return (
-        <form onSubmit={(event) => {
-            event.preventDefault()
-            aoEnviar({ nome, sobrenome, cpf, promocoes, novidades });
-        }}>
-            <TextField
-                value={nome}
-                onChange={
-                    (event) => {
+        <Fragment>
+            {formularioAtual(etapaAtual)}
+        </Fragment>
+    )
 
-                        setNome(event.target.value);
-                    }
-                }
-                fullWidth
-                margin="normal"
-                variant="outlined"
-                id="nome"
-                label="Nome" />
-            <TextField
-                value={sobrenome}
-                onChange={
-                    (event) => {
-
-                        setSobrenome(event.target.value);
-                    }
-                }
-                fullWidth
-                margin="normal"
-                variant="outlined"
-                id="sobrenome"
-                label="Sobrenome" />
-            <TextField
-                fullWidth margin="normal"
-                variant="outlined"
-                value={cpf}
-                onBlur={
-                    (event) => {
-                        let ehValido = validarCpf(cpf)
-                        setErros({ cpf: ehValido });
-                    }
-                }
-                onChange={
-                    (event) => {
-
-                        setCpf(event.target.value)
-                    }
-                }
-                error={!erros.cpf.valido}
-                helperText={erros.cpf.texto}
-                id="cpf"
-                label="CPF" />
-            <FormControlLabel
-                label="Promocoes"
-                control={<Switch onChange={(event => setPromocoes(event.target.checked))} name="promocoes" checked={promocoes} color="primary" />} />
-            <FormControlLabel
-                label="Novidades"
-                control={<Switch onChange={(event => setNovidades(event.target.checked))} name="Novidades" checked={novidades} color="primary" />} />
-
-            <Button type="submit" variant="contained" color="primary">Cadastrar</Button>
-        </form >);
 }
 
+
+{/* 
+<DadosEntrega /> */}
 export default FormularioCadastro;
