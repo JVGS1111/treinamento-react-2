@@ -1,10 +1,22 @@
 import { TextField, Button } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 
-function DadosEntrega() {
+function DadosEntrega({ aoEnviar }) {
+    const [cep, setCep] = useState("");
+    const [endereco, setEndereco] = useState("");
+    const [numero, setNumero] = useState("");
+    const [estado, setEstado] = useState("");
+    const [cidade, setCidade] = useState("");
+
     return (
-        <form>
+        <form onSubmit={event => {
+            event.preventDefault();
+            aoEnviar({ cep, endereco, numero, estado, cidade })
+        }}>
             <TextField
+                required
+                value={cep}
+                onChange={event => setCep(event.target.value)}
                 margin="normal"
                 variant="outlined"
                 id="cep"
@@ -12,6 +24,9 @@ function DadosEntrega() {
                 type="number"
             />
             <TextField
+                required
+                value={endereco}
+                onChange={event => setEndereco(event.target.value)}
                 fullWidth
                 margin="normal"
                 variant="outlined"
@@ -20,6 +35,9 @@ function DadosEntrega() {
                 type="text"
             />
             <TextField
+                required
+                value={numero}
+                onChange={event => setNumero(event.target.value)}
                 margin="normal"
                 variant="outlined"
                 id="numero"
@@ -27,6 +45,9 @@ function DadosEntrega() {
                 type="number"
             />
             <TextField
+                required
+                value={estado}
+                onChange={event => setEstado(event.target.value)}
                 margin="normal"
                 variant="outlined"
                 id="estado"
@@ -34,6 +55,9 @@ function DadosEntrega() {
                 type="text"
             />
             <TextField
+                required
+                value={cidade}
+                onChange={event => setCidade(event.target.value)}
                 margin="normal"
                 variant="outlined"
                 id="cidade"

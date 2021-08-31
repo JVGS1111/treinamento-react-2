@@ -1,10 +1,21 @@
 import { Button, TextField } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 
-function DadosUsuario() {
+function DadosUsuario({ aoEnviar, coletarDados }) {
+
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+
     return (
-        <form>
+        <form onSubmit={event => {
+            event.preventDefault();
+            aoEnviar({ email, senha });
+
+        }}>
             <TextField
+                value={email}
+                onChange={event => setEmail(event.target.value)}
+                required
                 fullWidth
                 margin="normal"
                 variant="outlined"
@@ -12,6 +23,9 @@ function DadosUsuario() {
                 label="email"
                 type="email" />
             <TextField
+                value={senha}
+                onChange={event => setSenha(event.target.value)}
+                required
                 fullWidth
                 margin="normal"
                 variant="outlined"

@@ -12,9 +12,13 @@ function DadosPessoais({ aoEnviar, validarCpf }) {
     return (
         <form onSubmit={(event) => {
             event.preventDefault()
-            aoEnviar({ nome, sobrenome, cpf, promocoes, novidades });
+            if (erros.cpf.valido) {
+                aoEnviar({ nome, sobrenome, cpf, promocoes, novidades });
+            }
+
         }}>
             <TextField
+                required
                 value={nome}
                 onChange={event => setNome(event.target.value)}
                 fullWidth
@@ -23,6 +27,7 @@ function DadosPessoais({ aoEnviar, validarCpf }) {
                 id="nome"
                 label="Nome" />
             <TextField
+                required
                 value={sobrenome}
                 onChange={event => setSobrenome(event.target.value)}
                 fullWidth
@@ -31,6 +36,7 @@ function DadosPessoais({ aoEnviar, validarCpf }) {
                 id="sobrenome"
                 label="Sobrenome" />
             <TextField
+                required
                 fullWidth margin="normal"
                 variant="outlined"
                 value={cpf}

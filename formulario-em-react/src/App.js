@@ -9,11 +9,15 @@ class App extends Component {
     return (
       <Container component="article" maxWidth="sm">
         <Typography variant="h3" component="h1" align="center">Formulario de Cadastro</Typography>
-        <FormularioCadastro aoEnviar={aoEnviarForm} validarCpf={validarCpf} />
+        <FormularioCadastro coletarDados={coletarDados} aoEnviar={aoEnviarForm} validarCpf={validarCpf} />
       </Container>
 
     )
   }
+}
+
+function coletarDados(dados) {
+
 }
 
 function aoEnviarForm(dados) {

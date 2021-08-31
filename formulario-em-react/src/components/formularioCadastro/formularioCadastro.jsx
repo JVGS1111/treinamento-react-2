@@ -1,5 +1,5 @@
-import { Typography } from '@material-ui/core';
-import React, { useState } from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import DadosEntrega from './DadosEntrega';
 import DadosPessoais from './DadosPessoais';
@@ -7,29 +7,32 @@ import DadosUsuario from './DadosUsuario';
 
 function FormularioCadastro({ aoEnviar, validarCpf }) {
     const [etapaAtual, setEtapaAtual] = useState(0);
+    const [dadosColetados, setDados] = useState({});
+    useEffect(() => {
+        console.log(dadosColetados);
+    })
 
-    function formularioAtual(etapaAtual) {
-        switch (etapaAtual) {
-            case 0:
-                return <DadosUsuario />
-            case 1:
-                return <DadosPessoais aoEnviar={aoEnviar} validarCpf={validarCpf} />
-            case 2:
-                return <DadosEntrega />
+    const formularios = [
+        <DadosUsuario aoEnviar={coletarDados} />,
+        <DadosPessoais aoEnviar={coletarDados} validarCpf={validarCpf} />,
+        <DadosEntrega aoEnviar={coletarDados} />
+    ];
 
-            default: <Typography>Erro ao selecionar formulario atual</Typography>
-        }
+    function coletarDados(dados) {
+        setDados({ ...dadosColetados, ...dados })
+        proximo();
+    }
+
+    function proximo() {
+        setEtapaAtual(etapaAtual + 1);
     }
 
     return (
         <Fragment>
-            {formularioAtual(etapaAtual)}
+            {formularios[etapaAtual]}
         </Fragment>
     )
 
 }
 
-
-{/* 
-<DadosEntrega /> */}
 export default FormularioCadastro;
