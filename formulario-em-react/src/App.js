@@ -10,9 +10,9 @@ class App extends Component {
       <Container component="article" maxWidth="sm">
         <Typography variant="h3" component="h1" align="center">Formulario de Cadastro</Typography>
         <ValidacoesCadastro.Provider value={{ cpf: validarCpf, senha: validarSenha, nome: validarSenha }}>
-          <FormularioCadastro aoEnviar={aoEnviarForm} />
-        </ValidacoesCadastro.Provider>
 
+        </ValidacoesCadastro.Provider>
+        <FormularioCadastro aoEnviar={aoEnviarForm} />
       </Container>
 
     )
